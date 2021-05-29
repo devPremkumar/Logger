@@ -7,11 +7,24 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "android-dev": "adb reverse tcp:8081 tcp:8081 && react-native run-android"
   },
   "dependencies": {
+    "@eva-design/eva": "^2.1.0",
+    "@ui-kitten/components": "^5.1.0",
+    "@ui-kitten/eva-icons": "^5.1.0",
     "react": "17.0.1",
-    "react-native": "0.64.1"
+    "react-native": "0.64.1",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-progress-circle": "^2.1.0",
+    "react-native-reanimated": "^2.2.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^3.3.0",
+    "react-native-svg": "^12.1.1",
+    "react-navigation": "^4.4.4",
+    "react-navigation-stack": "^2.10.4",
+    "react-navigation-tabs": "^2.11.1"
   },
   "devDependencies": {
     "@babel/core": "7.14.2",
