@@ -1,11 +1,8 @@
 import React from 'react'
-import { Text, Layout } from '@ui-kitten/components'
 import ProgressCircle from 'react-native-progress-circle'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 const Devices = () => {
-  // <Layout style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-  // </Layout>
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <ProgressCircle

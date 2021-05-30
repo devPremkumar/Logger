@@ -1,10 +1,10 @@
 import React from 'react'
-import { Text, Layout } from '@ui-kitten/components'
+import {Text, View} from 'react-native'
 
 const Logs = () => (
-  <Layout style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text>Logs Here !</Text>
-  </Layout>
+  </View>
 )
 
 export default Logs
