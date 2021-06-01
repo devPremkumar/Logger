@@ -9,7 +9,7 @@ const Devices = () => {
         percent={30}
         radius={100}
         borderWidth={15}
-        color="#3399FF"
+        color="#ff6347"
         shadowColor="#999"
         bgColor="#fff"
       >

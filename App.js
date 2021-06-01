@@ -21,7 +21,7 @@ const App = () =>{
                 ? 'globe'
                 : 'globe';
             } else if (route.name === 'Logs') {
-              iconName = focused ? 'ios-list-box' : 'ios-list';
+              iconName = focused ? 'ios-list' : 'ios-list';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
