@@ -9,15 +9,15 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
- 
-export default function App() {
+
+const Login = () => {
   const [ssid, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
+
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require("./src/assets/logo.png")} />
- 
+      <Image style={styles.image} source={require("./assets/logo.png")} />
+
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -27,7 +27,7 @@ export default function App() {
           onChangeText={(email) => setEmail(email)}
         />
       </View>
- 
+
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -37,18 +37,18 @@ export default function App() {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
- 
+
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
- 
+
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
     </View>
   );
 }
- 
+export default Login
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -56,40 +56,41 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
- 
+
   image: {
-    marginBottom: 20,
+    marginTop: 50,
+    marginBottom: 50,
   },
- 
+
   inputView: {
     backgroundColor: "#FFC0CB",
     borderRadius: 30,
     width: "70%",
     height: 45,
     marginBottom: 20,
- 
     alignItems: "center",
   },
- 
+
   TextInput: {
     height: 50,
     flex: 1,
     padding: 10,
     marginLeft: 20,
   },
- 
+
   forgot_button: {
     height: 30,
     marginBottom: 30,
   },
- 
+
   loginBtn: {
-    width: "80%",
-    borderRadius: 25,
-    height: 20,
+    width: "50%",
+    borderRadius: 50,
+    height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30,
+    marginTop: 100,
+    marginBottom: 300,
     backgroundColor: "#FF1493",
   },
 });
