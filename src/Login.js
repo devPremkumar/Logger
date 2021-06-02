@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -18,7 +17,7 @@ const Login = () => {
     <View style={styles.container}>
       <Image style={styles.image} source={require("./assets/logo.png")} />
 
-      <StatusBar style="auto" />
+      
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -37,10 +36,6 @@ const Login = () => {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-
-      <TouchableOpacity>
-        <Text style={styles.forgot_button}>Forgot Password?</Text>
-      </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.loginText}>LOGIN</Text>
@@ -78,12 +73,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
-
-  loginBtn: {
+   loginBtn: {
     width: "50%",
     borderRadius: 50,
     height: 50,
