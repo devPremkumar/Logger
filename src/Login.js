@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import wifi from 'react-native-android-wifi'
 import {
   StyleSheet,
   Text,
@@ -7,26 +8,64 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  PermissionsAndroid,
+  ToastAndroid
 } from "react-native";
+import { useNavigation } from '@react-navigation/native'
 
 const Login = () => {
-  const [ssid, setEmail] = useState("");
+  const navigation = useNavigation()
+  const [ssid, setSsid] = useState("");
   const [password, setPassword] = useState("");
+  async function getpermission() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'App permission',
+          message: 'We need your permission in order to find wifi networks'
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("Thank you for your permission! ");
+      } else {
+        console.log("You will not able to retrieve wifi available networks list");
+      }
+    } catch (err) {
+      console.warn(err)
+    }
 
+  }
+  useEffect(() => {
+    getpermission()
+  }, [])
+
+  const findandconnect = () => {
+    console.log('values', ssid, password)
+    return (
+      wifi.findAndConnect(ssid, password, (found) => {
+        if (found) {
+          ToastAndroid.show('Connected', ToastAndroid.SHORT)
+          navigation.navigate('Home')
+
+          console.log("wifi is in range");
+        } else {
+          console.log("wifi is not in range");
+        }
+      })
+    )
+  }
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require("./assets/logo.png")} />
-
-      
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="SSID"
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(value) => setSsid(value)}
         />
       </View>
-
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -37,7 +76,7 @@ const Login = () => {
         />
       </View>
 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn} onPress={findandconnect}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
     </View>
@@ -73,7 +112,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 
-   loginBtn: {
+  loginBtn: {
     width: "50%",
     borderRadius: 50,
     height: 50,
