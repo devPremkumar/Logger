@@ -19,10 +19,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   async function getpermission() {
     try {
-      const granted = await PermissionsAndroid.requestMultiple(
-        [
+      const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION],
         {
           title: 'App permission',
           message: 'We need your permission in order to find wifi networks'
@@ -42,7 +40,7 @@ const Login = () => {
     wifi.setEnabled(true),
     getpermission()
   }, [])
-
+  
   const findandconnect = () => {
     console.log('values', ssid, password)
     return (
