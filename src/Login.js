@@ -19,8 +19,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   async function getpermission() {
     try {
-      const granted = await PermissionsAndroid.request(
+      const granted = await PermissionsAndroid.requestMultiple(
+        [
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION],
         {
           title: 'App permission',
           message: 'We need your permission in order to find wifi networks'
@@ -37,6 +39,7 @@ const Login = () => {
 
   }
   useEffect(() => {
+    wifi.setEnabled(true),
     getpermission()
   }, [])
 
@@ -47,9 +50,9 @@ const Login = () => {
         if (found) {
           ToastAndroid.show('Connected', ToastAndroid.SHORT)
           navigation.navigate('Home')
-
           console.log("wifi is in range");
         } else {
+          ToastAndroid.show('Invalid SSID or Password', ToastAndroid.SHORT)
           console.log("wifi is not in range");
         }
       })
