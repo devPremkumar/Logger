@@ -50,6 +50,7 @@ const Login = () => {
 
           console.log("wifi is in range");
         } else {
+          ToastAndroid.show('Incorrect Password', ToastAndroid.SHORT)
           console.log("wifi is not in range");
         }
       })
