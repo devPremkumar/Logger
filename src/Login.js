@@ -57,7 +57,7 @@ const Login = () => {
   }
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require("./assets/logo.png")} />
+      <Image source={require('./assets/wifi.png')} resizeMode='contain' style={styles.image} />
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -86,40 +86,36 @@ export default Login
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#65b8fa",
     alignItems: "center",
     justifyContent: "center",
   },
 
   image: {
-    marginTop: 50,
+    height: '40%',
+    marginTop: 10,
     marginBottom: 50,
   },
 
+
   inputView: {
-    backgroundColor: "#FFC0CB",
-    borderRadius: 30,
+    backgroundColor: "#fff",
+    borderRadius: 10,
     width: "70%",
     height: 45,
     marginBottom: 20,
     alignItems: "center",
   },
 
-  TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
-  },
 
   loginBtn: {
     width: "50%",
-    borderRadius: 50,
+    borderRadius: 10,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 100,
-    marginBottom: 300,
-    backgroundColor: "#FF1493",
+    marginTop: 50,
+    marginBottom: 40,
+    backgroundColor: "#0465c2",
   },
 });
