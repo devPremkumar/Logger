@@ -1,50 +1,62 @@
 import React, { useState, useEffect } from "react";
 import wifi from 'react-native-android-wifi'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  PermissionsAndroid,
-  ToastAndroid
-} from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ToastAndroid } from "react-native";
 import { useNavigation } from '@react-navigation/native'
+import CustomSelect from './CustomSelect'
+import SelectOptions from './Selectoptions'
+import isEmpty from 'lodash/isEmpty'
+import loadlist from "./loadlist";
 
 const Login = () => {
   const navigation = useNavigation()
   const [ssid, setSsid] = useState("");
+  const [ssidModal, setSsidModal] = useState(false)
   const [password, setPassword] = useState("");
-  async function getpermission() {
-    try {
-      const granted = await PermissionsAndroid.requestMultiple(
-        [
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION],
-        {
-          title: 'App permission',
-          message: 'We need your permission in order to find wifi networks'
-        }
-      )
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("Thank you for your permission! ");
-      } else {
-        console.log("You will not able to retrieve wifi available networks list");
-      }
-    } catch (err) {
-      console.warn(err)
+  const [data, setdata] = useState([])
+const [ssTypeId, setssTypeId]= useState('');
+  wifi.loadWifiList((wifiStringList) => {
+    setdata(wifiStringList)
+    console.log('arri', wifiStringList);
+  },
+    (error) => {
+      console.log(error);
     }
+  )
+  console.log('data', data)
+
+  console.log('ssid', ssid)
+  // let list = data
+  !isEmpty(data) && data.map(_data => {
+      console.log('hfffvh', _data)
+  return {
+    value: _data.SSID,
+    content: _data.SSID,
+  }
+  })
+  // : []
+  // let list = [{ value: 1, content: 'hi' }, { value: 2, content: 'buye' }]
+  // list.map(_data => {
+  //   console.log('hfffvh', _data)
+  //   return {
+  //     value: _data.id,
+  //     content: _data.value,
+  //   }
+  // })
+  
+  const handleSSIDChange = (value) => {
+    console.log('vvv', value)
+    const selectedSSid = !isEmpty(data) && data.filter(_data => _data.value === value)[0]
+    console.log('selectedSSid', selectedSSid)
+    setSsid(selectedSSid.content)
+    setssTypeId(value)
+    setSsidModal(false)
 
   }
   useEffect(() => {
-    wifi.setEnabled(true),
-    getpermission()
+    wifi.setEnabled(true)
   }, [])
 
-  const findandconnect = () => {
-    console.log('values', ssid, password)
+  const connect = () => {
     return (
       wifi.findAndConnect(ssid, password, (found) => {
         if (found) {
@@ -58,40 +70,50 @@ const Login = () => {
       })
     )
   }
+
+  const modalToggle = () => setSsidModal(!ssidModal)
   return (
     <View style={styles.container}>
       <Image source={require('./assets/wifi.png')} resizeMode='contain' style={styles.image} />
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="SSID"
-          placeholderTextColor="#003f5c"
-          onChangeText={(value) => setSsid(value)}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password"
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        />
-      </View>
-
-      <TouchableOpacity style={styles.loginBtn} onPress={findandconnect}>
+      {/* <View style={styles.inputView}> */}
+      <CustomSelect
+        labelText='SSID'
+        placeHolder='SSID'
+        selectedValue={ssid}
+        onPress={() => modalToggle()}
+      />
+      {/* </View> */}
+      {/* <View style={styles.inputView}> */}
+      <TextInput
+        style={styles.TextInput}
+        placeholder="Pass"
+        placeholderTextColor="#003f5c"
+        secureTextEntry={true}
+        onChangeText={(password) => setPassword(password)}
+      />
+      {/* </View> */}
+      <TouchableOpacity style={styles.loginBtn} onPress={() => connect()}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
+      {ssidModal &&
+        <SelectOptions
+          visible={ssidModal}
+          listData={list}
+          selectedValue={ssTypeId}
+          title='Available SSID Names'
+          callBack={handleSSIDChange}
+          onClose={() => setSsidModal(false)}
+        />}
     </View>
   );
 }
 export default Login
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#65b8fa",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 
   image: {
@@ -104,10 +126,10 @@ const styles = StyleSheet.create({
   inputView: {
     backgroundColor: "#fff",
     borderRadius: 10,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
+    // width: "70%",
+    // height: 45,
+    // marginBottom: 20,
+    // alignItems: "center",
   },
 
 
@@ -121,4 +143,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     backgroundColor: "#0465c2",
   },
+  picker: {
+    flex: 1,
+    paddingTop: 40,
+    alignItems: "center"
+  }
 });
