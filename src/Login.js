@@ -13,44 +13,28 @@ const Login = () => {
   const [ssidModal, setSsidModal] = useState(false)
   const [password, setPassword] = useState("");
   const [data, setdata] = useState([])
-const [ssTypeId, setssTypeId]= useState('');
+  const [ssTypeId, setssTypeId] = useState('');
+  let wifiList = []
   wifi.loadWifiList((wifiStringList) => {
-    setdata(wifiStringList)
-    console.log('arri', wifiStringList);
+    const list = JSON.parse(wifiStringList)
+    wifiList = list && list.length > 0 ? list.map(wifiData => {
+      return {
+        value: wifiData.SSID,
+        content: wifiData.SSID,
+      }
+    }) : []
+    setdata(wifiList)
   },
     (error) => {
       console.log(error);
     }
   )
-  console.log('data', data)
 
-  console.log('ssid', ssid)
-  // let list = data
-  !isEmpty(data) && data.map(_data => {
-      console.log('hfffvh', _data)
-  return {
-    value: _data.SSID,
-    content: _data.SSID,
-  }
-  })
-  // : []
-  // let list = [{ value: 1, content: 'hi' }, { value: 2, content: 'buye' }]
-  // list.map(_data => {
-  //   console.log('hfffvh', _data)
-  //   return {
-  //     value: _data.id,
-  //     content: _data.value,
-  //   }
-  // })
-  
   const handleSSIDChange = (value) => {
-    console.log('vvv', value)
     const selectedSSid = !isEmpty(data) && data.filter(_data => _data.value === value)[0]
-    console.log('selectedSSid', selectedSSid)
     setSsid(selectedSSid.content)
     setssTypeId(value)
     setSsidModal(false)
-
   }
   useEffect(() => {
     wifi.setEnabled(true)
@@ -75,30 +59,30 @@ const [ssTypeId, setssTypeId]= useState('');
   return (
     <View style={styles.container}>
       <Image source={require('./assets/wifi.png')} resizeMode='contain' style={styles.image} />
-      {/* <View style={styles.inputView}> */}
-      <CustomSelect
-        labelText='SSID'
-        placeHolder='SSID'
-        selectedValue={ssid}
-        onPress={() => modalToggle()}
-      />
-      {/* </View> */}
-      {/* <View style={styles.inputView}> */}
-      <TextInput
-        style={styles.TextInput}
-        placeholder="Pass"
-        placeholderTextColor="#003f5c"
-        secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
-      />
-      {/* </View> */}
+      <View style={styles.inputView}>
+        <CustomSelect
+          labelText='SSID'
+          placeHolder='SSID'
+          selectedValue={ssid}
+          onPress={() => modalToggle()}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Pass"
+          placeholderTextColor="#003f5c"
+          secureTextEntry={true}
+          onChangeText={(password) => setPassword(password)}
+        />
+      </View>
       <TouchableOpacity style={styles.loginBtn} onPress={() => connect()}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
-      {ssidModal &&
+      {ssidModal && data.length > 0 &&
         <SelectOptions
           visible={ssidModal}
-          listData={list}
+          listData={data}
           selectedValue={ssTypeId}
           title='Available SSID Names'
           callBack={handleSSIDChange}
@@ -110,10 +94,10 @@ const [ssTypeId, setssTypeId]= useState('');
 export default Login
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: "#65b8fa",
-    // alignItems: "center",
-    // justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   image: {
@@ -126,10 +110,10 @@ const styles = StyleSheet.create({
   inputView: {
     backgroundColor: "#fff",
     borderRadius: 10,
-    // width: "70%",
-    // height: 45,
-    // marginBottom: 20,
-    // alignItems: "center",
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    alignItems: "center",
   },
 
 

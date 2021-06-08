@@ -6,7 +6,6 @@ import { grayColor, primaryColor, seconderyColor } from './colors'
 
 const CustomSelect = (props) => {
     const { labelText, onPress, selectedValue, placeHolder, style } = props
-    console.log('selectedValue', selectedValue)
     return (
         <View style={style || {}}>
             <Text style={{

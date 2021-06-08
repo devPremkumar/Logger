@@ -11,7 +11,6 @@ const SelectOptions = (props) => {
   const [visible, setVisible] = useState(false)
   const [listData, setListData] = useState([])
   const [filterData, setFilterData] = useState([])
-console.log('listdata', listData)
   useEffect(() => {
     setVisible(props && !isEmpty(props.listData) ? props.visible : false)
     setListData(props && !isEmpty(props.listData) ? props.listData : [])
