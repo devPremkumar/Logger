@@ -9,30 +9,30 @@ const CustomSelect = (props) => {
     return (
         <View style={style || {}}>
             <Text style={{
-                fontSize: 16,
+                fontSize: 10,
                 fontWeight: 'bold',
                 color: primaryColor
             }}>{labelText}</Text>
             <TouchableOpacity onPress={onPress}>
                 <View style={{
-                    flex: 1, marginBottom: 20, borderBottomWidth: 1,
+                    flex: 1, marginBottom: 25, borderBottomWidth: 3,
                     borderColor: grayColor,
                     borderStyle: 'solid'
                 }}>
                     <View>
                         {selectedValue
                             ? <Text style={{
-                                fontSize: 18,
+                                fontSize: 20,
                                 color: seconderyColor,
-                                lineHeight: 48
+                                lineHeight: 20
                             }}>{selectedValue}</Text>
                             : <Text style={{
-                                fontSize: 18,
+                                fontSize: 15,
                                 color: seconderyColor,
-                                lineHeight: 48
+                                lineHeight: 20
                             }}>{placeHolder}</Text>}
                     </View>
-                    <Icon name='down' style={{ position: 'absolute', bottom: 10, right: 2 }} />
+                    <Icon name='down' style={{ position: 'absolute', bottom: 12, right: -90 }} />
                 </View>
             </TouchableOpacity>
         </View>

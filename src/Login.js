@@ -61,8 +61,8 @@ const Login = () => {
       <Image source={require('./assets/wifi.png')} resizeMode='contain' style={styles.image} />
       <View style={styles.inputView}>
         <CustomSelect
-          labelText='SSID'
-          placeHolder='SSID'
+          // labelText='SELECT SSID'
+          placeHolder='SELECT SSID'
           selectedValue={ssid}
           onPress={() => modalToggle()}
         />
@@ -70,7 +70,7 @@ const Login = () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Pass"
+          placeholder="Password"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
@@ -109,10 +109,10 @@ const styles = StyleSheet.create({
 
   inputView: {
     backgroundColor: "#fff",
-    borderRadius: 10,
-    width: "70%",
+    borderRadius: 20,
+    width: "80%",
     height: 45,
-    marginBottom: 20,
+    marginBottom: 20,   
     alignItems: "center",
   },
 
